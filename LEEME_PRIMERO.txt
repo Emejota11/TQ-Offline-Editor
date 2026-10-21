@@ -1,0 +1,32 @@
+TQ OFFLINE EDITOR v1 — Emejota11
+
+Este ZIP contiene el PROYECTO, no un EXE ya compilado.
+No tienes que escribir codigo.
+
+1. Extrae TODO el ZIP a una carpeta de tu PC Windows.
+2. Instala Node.js LTS desde https://nodejs.org/ (opciones predeterminadas).
+3. Abre CREAR_EXE.cmd con doble clic, SIN ejecutarlo como administrador.
+4. Necesita internet para descargar Electron y las herramientas de compilacion.
+   La primera vez puede tardar varios minutos.
+5. Si termina correctamente, se abre la carpeta dist con el EXE portable.
+6. Prueba el EXE con un personaje de prueba y un respaldo, antes de compartirlo.
+
+El EXE abre su propia ventana. Las instrucciones estan dentro del editor.
+No necesita Node.js ni internet en la PC de quien solo use el EXE.
+Electron incluye el motor para mostrar la interfaz, por eso el EXE pesa mas que el HTML.
+
+Primero comprobaremos: abrir la ventana, cargar Player.chr, guardar respaldo,
+editar un punto, guardar la copia y verificarla en el juego.
+
+Para usarlo ya mismo sin generar EXE, abre app/index.html en Chrome o Edge.
+
+El codigo incluye el credito:
+Created by Emejota11 · Developed with assistance from ChatGPT
+
+No contiene tus personajes ni partidas personales.
+
+DONDE ESTA PLAYER.CHR
+Normalmente: %USERPROFILE%\Documents\My Games\Titan Quest - Immortal Throne\SaveData\Main
+Abre la carpeta de tu personaje y selecciona Player.chr.
+Si no aparece, pulsa Win+R, escribe shell:Personal y presiona Enter.
+Desde Documentos, abre My Games y las carpetas indicadas. Documentos puede estar en OneDrive.

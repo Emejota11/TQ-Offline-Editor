@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.chr
+*.bak
+*.log
+.DS_Store

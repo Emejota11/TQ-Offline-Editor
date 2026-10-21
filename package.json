@@ -1,0 +1,49 @@
+{
+  "name": "tq-offline-editor",
+  "version": "1.0.0",
+  "description": "Editor offline de personajes de Titan Quest Anniversary Edition",
+  "author": "Emejota11",
+  "private": true,
+  "main": "main.cjs",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "electron .",
+    "verify": "node scripts/verify.cjs",
+    "dist": "npm run verify && electron-builder --win portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "com.emejota11.tqofflineeditor",
+    "productName": "TQ Offline Editor",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.cjs",
+      "app/**/*",
+      "assets/icon.png",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "TQ-Offline-Editor-v${version}-Windows-x64.exe"
+    }
+  }
+}
