@@ -1,0 +1,10 @@
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync(path.join(__dirname,'../app/index.html'),'utf8');
+const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
+for(const script of scripts)new vm.Script(script);
+const context={TextEncoder,Uint8Array,DataView};vm.createContext(context);vm.runInContext(scripts[0].split('const $=')[0],context);
+function field(name,value,float=false){const key=Buffer.from(name),out=Buffer.alloc(8+key.length);out.writeUInt32LE(key.length);key.copy(out,4);if(float)out.writeFloatLE(value,4+key.length);else out.writeUInt32LE(value,4+key.length);return out;}
+const bytes=new Uint8Array(Buffer.concat([field('headerVersion',3),field('money',500),field('altMoney',0),field('modifierPoints',3),field('skillPoints',2),field('currentStats.charLevel',1),field('playerLevel',1),field('maxLevel',1),field('currentStats.experiencePoints',0),field('begin_block',2954754766),...[50,50,50,300,300].map(v=>field('temp',v,true)),field('end_block',3735929054)]));
+const before=Buffer.from(bytes),info=context.readSave(bytes),values=Object.fromEntries(Object.entries(info).filter(([key])=>!['playerLevel','maxLevel'].includes(key)).map(([key,v])=>[key,v.value]));
+const edited=context.patchSave(bytes,{...values,strength:58,energy:500,gold:600});assert.equal(context.readSave(edited).strength.value,58);assert.equal(context.readSave(edited).energy.value,500);assert.equal(context.readSave(edited).gold.value,600);assert.deepEqual(Buffer.from(bytes),before);for(let i=0;i<bytes.length;i++)if(!['strength','energy','gold'].some(key=>i>=info[key].offset&&i<info[key].offset+4))assert.equal(edited[i],bytes[i]);assert.throws(()=>context.patchSave(bytes,{...values,strength:-1}));assert(!html.includes('id="personalize"'));assert(html.includes('Created by <strong>Emejota11</strong>'));
+console.log('OK: sintaxis, campos, cambios aislados, original intacto, limites, diseno fijo y creditos.');
